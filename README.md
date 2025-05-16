@@ -34,6 +34,23 @@ This is a full-stack RAG demo featuring:
    - Stores it in memory and retrieves the top relevant chunks.
    - Constructs a prompt and sends it to Gemini for answering.
 4. The generated response is returned to the Angular frontend and displayed to the user.
+
+## 🧪 What's in This Demo?
+This demo is designed to help you understand and visualize the RAG pipeline in action. It includes:
+
+A user input field for querying
+
+A retriever that fetches top relevant documents from a knowledge base 
+
+A language model (e.g., OpenAI GPT or a local model) that uses the documents as context to generate answers
+
+An interface showing:
+
+User question
+
+Retrieved context
+
+Final generated response
    
 ## 🛠️ Setup Instructions
 
