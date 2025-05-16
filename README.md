@@ -1,4 +1,4 @@
-# 🧠 Retrieval-Augmented Generation (RAG) Demo with Google Gemini, Web Scraping & Angular Frontend
+# 🧠 Retrieval-Augmented Generation (RAG) Demo with Google Gemini & Angular Frontend
 
 ## 🔍 What is RAG?
 
@@ -34,23 +34,7 @@ This is a full-stack RAG demo featuring:
    - Stores it in memory and retrieves the top relevant chunks.
    - Constructs a prompt and sends it to Gemini for answering.
 4. The generated response is returned to the Angular frontend and displayed to the user.
-
----
-
-## 🧱 Tech Stack
-
-| Layer        | Tool / Framework              |
-|--------------|-------------------------------|
-| Frontend     | Angular                       |
-| Backend      | Node.js + Express             |
-| Scraping     | Axios + Cheerio               |
-| Embeddings   | Google `embedding-001`        |
-| LLM          | Google Gemini 2.0 Flash       |
-| Vector Store | In-memory array               |
-| API          | RESTful endpoint (`/api/ask`) |
-
----
-
+   
 ## 🛠️ Setup Instructions
 
 ### 1. Clone the Repository
@@ -58,4 +42,52 @@ This is a full-stack RAG demo featuring:
 ```bash
 git clone https://github.com/your-username/rag-demo.git
 cd rag-demo
+```
+
+### 2. Install Backend Dependencies
+```
+npm install
+
+```
+### 3.Create Environment File
+```
+API_KEY=your_google_api_key
+```
+
+### 3.Create Environment File
+Create a .env.local file in the root directory and add your Google API key:
+```
+API_KEY=your_google_api_key
+```
+ ### 4. Start the Backend Server
+ ```
+  node index.js
+```
+
+🖥️ Frontend (Angular)
+5. Install Angular Dependencies
+```
+cd frontend
+npm install
+
+💡 Be sure to delete package-lock.json if it exists.
+```
+
+6. Start Angular Server
+   ```
+   ng serve
+   ```
+
+
+ 
+
+
+
+
+
+
+
+
+
+
 
