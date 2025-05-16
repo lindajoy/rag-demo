@@ -1,0 +1,89 @@
+<div class="fixed inset-0 flex items-center justify-center">
+  <div class="shadow-xl/30 border-2 border-solid border-chat-grey width w-150 p-10 rounded-xl">
+    <div class="flex flex-col space-y-1">
+      <h3 class="font-sans font-medium text-zinc-900 dark:text-zinc-900">
+        Website Summarizer
+      </h3>
+      <p class="font-sans text-zinc-500 dark:text-zinc-900">
+        Paste a site URL, then ask anything you'd like to know about it!
+      </p>
+    </div>
+    <hr class="mt-6">
+    <form class="flex flex-col gap-2 flex-1 p-4 justify-between" [formGroup]="formGroup">
+      <div class="space-y-2">
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-4 h-4 text-zinc-500">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+            </svg>
+            <span class="text-sm text-zinc-500">Url</span>
+          </div>
+          <input type="text" formControlName="url" name="url" placeholder="Enter your website here ..."
+            class="w-full bg-zinc-100 dark:bg-chat-grey text-sm text-chat-grey dark:text-black placeholder:text-zinc-500 rounded-xl p-2 border border-transparent focus:outline-none focus:border-zinc-900 dark:focus:border-zinc-100" />
+        </div>
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="w-4 h-4 text-zinc-500">
+            <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path>
+          </svg>
+          <span class="text-sm text-zinc-500">Prompt</span>
+        </div>
+        <textarea type="text" formControlName="prompt" name="prompt" rows="4"
+          placeholder="Got a question about your site?"
+          class="w-full bg-zinc-100 dark:bg-chat-grey text-sm text-chat-grey dark:text-black placeholder:text-zinc-500 rounded-xl p-2 border border-transparent focus:outline-none focus:border-zinc-900 dark:focus:border-zinc-100"></textarea>
+      </div>
+      <div class="flex items-center justify-between gap-4 mb-3">
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-4 h-4 text-zinc-500">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />
+            </svg>
+            <span class="text-sm text-zinc-500">Tone</span>
+          </div>
+
+          <select formControlName="tone"
+            class="w-[160px] h-8 bg-white border border-zinc-200 dark:border-zinc-700 rounded-md px-2 text-sm focus:border-gray-400 focus:outline-none">
+            @for(option of tones; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      @if(!isLoading){
+        <button type="submit" (click)="generateResponse()"
+          class="w-full h-9 flex items-center justify-center gap-2 border border-gray-500 bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:hover:bg-zinc-100 dark:text-zinc-900 text-white text-sm font-medium rounded-xl transition-colors self-end">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+            <path
+              d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z">
+            </path>
+            <path d="M5 3v4"></path>
+            <path d="M19 17v4"></path>
+            <path d="M3 5h4"></path>
+            <path d="M17 19h4"></path>
+          </svg>
+          Generate Answer
+        </button>
+      } @else {
+        <div class="flex items-center">
+          <div class="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-[#0c1c2c] border-t-transparent"></div>
+          <span class="text-sm text-zinc-500">Loading...</span>
+        </div>
+      }
+      @if(showErrorMessage) {
+        <span class="text-sm text-red-500">All form values should be filled</span>
+      }
+    </form>
+
+    @if(answer) {
+    <textarea [ngModel]="answer" (input)="autoResize($event)" rows="4" placeholder="Response will appear here..."
+      class="w-full bg-zinc-200 dark:bg-chat-grey text-sm text-chat-grey dark:text-black placeholder:text-zinc-500 rounded-xl p-2 border border-transparent focus:outline-none focus:border-zinc-900 dark:focus:border-zinc-100"></textarea>
+    }
+  </div>
+</div>
