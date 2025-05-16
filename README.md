@@ -49,10 +49,6 @@ cd rag-demo
 npm install
 
 ```
-### 3.Create Environment File
-```
-API_KEY=your_google_api_key
-```
 
 ### 3.Create Environment File
 Create a .env.local file in the root directory and add your Google API key:
